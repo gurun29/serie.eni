@@ -1,13 +1,40 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Series!</title>
-</head>
-<body>
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
 <h1>Testou</h1>
-</body>
-</html>
+<div>
+
+    <div>{{ "now"|date('Y') }}</div>
+    <div>{{ "+1 year"|date('Y') }}</div>
+    {# mon nom #}
+    {% set nom = "gurun" %}
+    <h2>{{ nom }} {{ nom | length }}</h2>
+
+    {# cree un tableau #}
+    {% set colors = ["orange","blue","brown"] %}
+    <div>nbre de couleur : {{ colors | length }}</div>
+    <div>{{ colors | join(' / ') }}</div>
+    {% for color in colors %}
+        <div>{{ loop.index }}</div>
+        <div>{{ loop.last }}</div>
+        <div style="background-color: {{ color }}">{{ color }}</div>
+    {% endfor %}
+
+    {# un objet #}
+    {% set book = {
+        title: "pipaf",
+        year : 2020,
+        author:"John Doe",}
+    %}
+    <h3>{{ book.author}}</h3>
+    <div>
+        {% for key, value in book %}
+            <div>{{ key }} : {{ value }}</div>
+        {% endfor %}
+
+    </div>
+</div>
+{% endblock %}
+
+{% block title %}{{ parent() }} | testounet {% endblock %}
