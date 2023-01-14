@@ -54,3 +54,26 @@ nav li {
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
 
 }
+
+label {
+    display: block;
+}
+
+input, textarea, select {
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+    max-width: 50%;
+    width: 150px;
+}
+
+.flash {
+    padding: 20px;
+    font-size: 1.4rem;
+    font-weight: bolder;
+    margin: 1rem 0;
+    border-radius: 5px;
+}
+
+.flash-sucess {
+    background-color: lawngreen;
+}

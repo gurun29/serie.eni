@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\SerieRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=SerieRepository::class)
@@ -18,6 +19,8 @@ class Serie
     private $id;
 
     /**
+     * @Assert\NotBlank(message="Please provide a title for the serie!")
+     * @Assert\Length(min={3})
      * @ORM\Column(type="string", length=255)
      */
     private $name;
