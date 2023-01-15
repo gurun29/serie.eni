@@ -20,7 +20,7 @@ class Serie
 
     /**
      * @Assert\NotBlank(message="Please provide a title for the serie!")
-     * @Assert\Length(min={3})
+     * @Assert\Length(max=255, min=2)
      * @ORM\Column(type="string", length=255)
      */
     private $name;
@@ -31,11 +31,13 @@ class Serie
     private $overview;
 
     /**
+     * @Assert\Choice(choices={"Cancelled", "returning","ending"})
      * @ORM\Column(type="string", length=50)
      */
     private $status;
 
     /**
+     * @Assert\Range(min="0",max="10",minMessage="trop petit",maxMessage="trop grand")
      * @ORM\Column(type="decimal", precision=3, scale=1)
      */
     private $vote;
@@ -51,6 +53,7 @@ class Serie
     private $firstAirDate;
 
     /**
+     * @Assert\GreaterThanOrEqual(propertyPath="firstAirDate")
      * @ORM\Column(type="date")
      */
     private $lastAirDate;

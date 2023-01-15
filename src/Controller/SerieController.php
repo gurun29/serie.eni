@@ -67,7 +67,7 @@ class SerieController extends AbstractController
         $serieForm->handleRequest($request);
         dump($serie);
 
-        if ($serieForm->isSubmitted()){
+        if ($serieForm->isSubmitted() && $serieForm->isValid()){
 
             $entityManager->persist($serie);
             $entityManager->flush();
