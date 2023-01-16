@@ -6,6 +6,7 @@ use App\Entity\Serie;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -38,7 +39,13 @@ class SerieType extends AbstractType
             ])
             ->add('lastAirDate')
             ->add('backdrop')
-            ->add('poster')
+            //->add('poster')
+            ->add('poster', FileType::class,[
+                'label' => 'poster',
+                'multiple' => false,
+                'mapped' => false,
+                'required' => false
+            ])
             ->add('tmbdId')
 
 

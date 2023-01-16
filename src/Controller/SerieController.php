@@ -42,7 +42,11 @@ class SerieController extends AbstractController
     public function details(int $id, SerieRepository $serieRepository): Response
     {
         $serie = $serieRepository->find($id);
-        //todo : aller chercher la serie en bdd
+
+        //foreach ($serie->getSeasons() as $season)
+        //    dd($serie);
+
+
         return $this->render('serie/details.html.twig',[
             "serie"=>$serie
         ]);
@@ -62,13 +66,25 @@ class SerieController extends AbstractController
         $serie = new Serie();
         $serie->setDateCreated(new \DateTime());
 
+
         $serieForm = $this->createForm(SerieType::class, $serie);
         dump($serie);
+
         $serieForm->handleRequest($request);
         dump($serie);
 
         if ($serieForm->isSubmitted() && $serieForm->isValid()){
 
+            //$images = $wishForm->get('images')->getData();
+            $image = $serieForm->get('poster')->getData();
+            $fichier = md5(uniqid()).'.'.$image->guessExtension();
+            $serie->setPoster($fichier);
+            //$serie->setBackdrop($image);
+            $image->move(
+                $this->getParameter('images_directory'),
+                $fichier
+            );
+            //dd($serie);
             $entityManager->persist($serie);
             $entityManager->flush();
             $this->addFlash('sucess','serie added! good');

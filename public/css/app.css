@@ -91,7 +91,18 @@ input, textarea, select {
     min-width: 200px;
 }
 
-.article {
+.details .seasons  {
+    display: inline-block;
+
+}
+.details .seasons article  {
+    display: flex;
+    margin: 1rem 2rem;
+}
+.details .seasons img {
+    width: 15%;
+}
+.details2 {
 
     margin-bottom: 1rem;
    /*
@@ -106,7 +117,7 @@ input, textarea, select {
 
 }
 
-.article div {
+.details2 div {
     padding: 0.5em 1em;
 }
 
