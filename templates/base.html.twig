@@ -12,7 +12,9 @@
     <link rel="stylesheet" href=" {{ asset('img/icon.png') }}">
 
 </head>
-<body>
+<body {% block body1 %}{% endblock %}>
+
+
     <div class="container">
         <header>
             <h1><a href="{{ path('app_main_home') }}"></a><img src="{{ asset('img/logo.svg') }}" alt="Series!"> </h1>

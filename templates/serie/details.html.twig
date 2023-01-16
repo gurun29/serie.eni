@@ -4,11 +4,43 @@
     {{ serie.name }} | {{ parent() }}
 {% endblock %}
 
-{% block body %}
+{% block body  %}
+
+
+
+
+
+
     <h2>{{ serie.name }}</h2>
-        <div>{{ serie.overview }}</div>
-        <div>{{ serie.popularity }}</div>
-        <div>{{ serie.vote }}</div>
-        <div>{{ serie.genre }}</div>
+    <div class="details">
+
+        <div class="article">
+            <img src="{{ asset('img/posters/series/' ~ serie.poster) }}" alt="{{ serie.name }}">
+        </div>
+
+
+        <div class="article" >
+            <div>Categorized in : {{ serie.genre }}</div>
+            <div>Serie status{{ serie.status }}</div>
+            <div>aired from : {{ serie.firstAirDate|date("y-m-d") }}</div>
+            <div>Popularity : {{ serie.popularity }}</div>
+            <div>User rating :{{ serie.vote }}</div>
+            <div>{{ serie.overview }}</div>
+        </div>
+
+
+    </div>
+
+
+
+{% endblock %}
+
+
+
+{% block body1 %}
+
+<div class="bg_detail" style=" background-image:linear-gradient(rgba(0,0,0,0.9),rgba(0,0,0,0.7)), url('{{asset('img/posters/series/' ~ serie.poster)}}');">
+</div>
+
 {% endblock %}
 
