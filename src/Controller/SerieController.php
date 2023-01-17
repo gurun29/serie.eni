@@ -43,6 +43,9 @@ class SerieController extends AbstractController
     {
         $serie = $serieRepository->find($id);
 
+        if (!$serie){
+            throw $this->createNotFoundException("oh no, the serie don't exist");
+        }
         //foreach ($serie->getSeasons() as $season)
         //    dd($serie);
 
@@ -68,22 +71,28 @@ class SerieController extends AbstractController
 
 
         $serieForm = $this->createForm(SerieType::class, $serie);
-        dump($serie);
+        //dump($serie);
 
         $serieForm->handleRequest($request);
-        dump($serie);
+        //dump($serie);
 
         if ($serieForm->isSubmitted() && $serieForm->isValid()){
 
             //$images = $wishForm->get('images')->getData();
             $image = $serieForm->get('poster')->getData();
-            $fichier = md5(uniqid()).'.'.$image->guessExtension();
-            $serie->setPoster($fichier);
-            //$serie->setBackdrop($image);
-            $image->move(
-                $this->getParameter('images_directory'),
-                $fichier
-            );
+            if ($image){
+                $fichier = md5(uniqid()).'.'.$image->guessExtension();
+                $serie->setPoster($fichier);
+                //$serie->setBackdrop($image);
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $fichier
+                );
+            }else{
+                $serie->setPoster("na");
+            }
+
+
             //dd($serie);
             $entityManager->persist($serie);
             $entityManager->flush();
@@ -96,6 +105,66 @@ class SerieController extends AbstractController
         return $this->render('serie/create.html.twig', [
             'serieForm' => $serieForm ->createView(),
         ]);
+
+    }
+
+    /**
+     * @Route("/delete0/{id}", name="delete0")
+     */
+    public function delete0(Serie $serie, EntityManagerInterface $entityManager)
+    {
+        dump($serie);
+        //$serie = $serieRepository->find($id);
+
+        if (!$serie){
+            throw $this->createNotFoundException("oh no delete, the serie don't exist");
+        }
+        //dd($serie);
+        $entityManager->remove($serie);
+
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_main_home');
+    }
+
+
+    /**
+     * @Route("/test/{id}", name="test")
+     *
+     */
+    public function test(Serie $serie, EntityManagerInterface $entityManager): Response
+    {
+
+
+        if (!$serie){
+            throw $this->createNotFoundException("oh no, the serie don't exist");
+        }
+        //foreach ($serie->getSeasons() as $season)
+        //    dd($serie);
+
+
+        return $this->render('serie/tests.html.twig',[
+            "serie"=>$serie
+        ]);
+    }
+
+    /**
+     * @Route("/delete/{id}", name="delete")
+     */
+    public function delete(int $id, SerieRepository $serieRepository, EntityManagerInterface $entityManager): Response
+    {
+        $serie = $serieRepository->find($id);
+
+        if (!$serie){
+            throw $this->createNotFoundException("oh no, the serie don't exist");
+        }
+        //foreach ($serie->getSeasons() as $season)
+        //    dd($serie);
+
+        $entityManager->remove($serie);
+        $entityManager->flush();
+
+        return $this->render('main/home.html.twig');
 
     }
 
@@ -122,13 +191,13 @@ class SerieController extends AbstractController
         $serie->setTmbdId(329432);
 
 
-        dump($serie);
+        //dump($serie);
 
         $entityManager->persist($serie);
         $entityManager->flush();
         //$entityManager = $this->getDoctrine()->getManager();
 
-        dump($serie);
+        //dump($serie);
 
         //$entityManager->remove($serie);
         $serie->setGenre('comedy');

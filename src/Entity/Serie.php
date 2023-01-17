@@ -91,7 +91,7 @@ class Serie
     private $genre;
 
     /**
-     * @ORM\OneToMany(targetEntity=Season::class, mappedBy="serie")
+     * @ORM\OneToMany(targetEntity=Season::class, mappedBy="serie",cascade={"remove"})
      */
     private $seasons;
 

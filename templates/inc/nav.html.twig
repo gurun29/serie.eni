@@ -4,10 +4,11 @@
         <li><a href="{{ path('app_main_test') }}" title="Test">Test</a></li>
         <li><a href="{{ path('app_serie_list') }}" title="All series">Series</a></li>
         {% if app.user %}
-            <li><a href="{{ path('app_serie_create') }}" title="Create a new serie">Create</a></li>
+            <li><a href="{{ path('app_serie_create') }}" title="Create a new serie">Create serie</a></li>
+            <li><a href="{{ path('app_season_create') }}" title="Create a new season">Create season</a></li>
             <li><a href="{{ path('app_logout') }}" title="Logout">Logout ({{ app.user.firstname }})</a></li>
                 {% if is_granted("ROLE_ADMIN") %}
-                    <li><a href="{{ path('admin_dashboard') }}" title="Admin_dashboard">Admin ({{ app.user.firstname }})</a></li>
+                    <li><a href="{{ path('admin_dashboard') }}" title="Admin dashboard">Admin</a></li>
                 {% endif %}
             {% else %}
             <li><a href="{{ path('app_login') }}" title="Login">Login</a></li>

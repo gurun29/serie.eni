@@ -18,34 +18,37 @@
             <img src="{{ asset('img/posters/series/' ~ serie.poster) }}" alt="{{ serie.name }}">
         </div>
 
+            <div class="details2">
+                <h2>{{ serie.name }}</h2>
+                <div>Categorized in : {{ serie.genre }}</div>
+                <div>Serie status{{ serie.status }}</div>
+                <div>aired from : {{ serie.firstAirDate|date("y-m-d") }}</div>
+                <div>Popularity : {{ serie.popularity }}</div>
+                <div>User rating :{{ serie.vote }}</div>
+                <div>{{ serie.overview }}</div>
 
-        <div class="details2" >
-            <h2>{{ serie.name }}</h2>
-            <div>Categorized in : {{ serie.genre }}</div>
-            <div>Serie status{{ serie.status }}</div>
-            <div>aired from : {{ serie.firstAirDate|date("y-m-d") }}</div>
-            <div>Popularity : {{ serie.popularity }}</div>
-            <div>User rating :{{ serie.vote }}</div>
-            <div>{{ serie.overview }}</div>
+                {% if is_granted("ROLE_ADMIN") %}
+                    <button>
+                        Supprimer
+                    </button>
+                {% endif %}
 
-            <section class="seasons">
-                <h3>Seasons</h3>
-                {% for season in serie.seasons %}
-                <article>
-                    <img src="{{ asset('img/posters/seasons/' ~ season.poster) }}" alt="{{ serie.name }}">
-                    <div>
-                        <h4>Season {{ season.number }}</h4>
-                        {% if season.overview %}
-                            <div>{{ season.overview  }}</div>
-                        {% endif %}
-                    </div>
+                <section class="seasons">
+                    <h3>Seasons</h3>
+                    {% for season in serie.seasons %}
+                        <article>
+                            <img src="{{ asset('img/posters/seasons/' ~ season.poster) }}" alt="{{ serie.name }}">
+                            <div>
+                                <h4>Season {{ season.number }}</h4>
+                                {% if season.overview %}
+                                    <div>{{ season.overview  }}</div>
+                                {% endif %}
+                            </div>
 
-                </article>
-                {% endfor %}
-            </section>
-        </div>
-
-
+                        </article>
+                    {% endfor %}
+                </section>
+            </div>
     </div>
 
 
@@ -55,9 +58,7 @@
 
 
 {% block body1 %}
-
-<div class="bg_detail" style=" background-image:linear-gradient(rgba(0,0,0,0.9),rgba(0,0,0,0.7)), url('{{asset('img/posters/series/' ~ serie.poster)}}');">
-</div>
+class="bg_detail" style="background-image:linear-gradient(rgba(0,0,0,0.9),rgba(0,0,0,0.7)), url('{{asset('img/posters/series/' ~ serie.poster)}}');"
 
 {% endblock %}
 
