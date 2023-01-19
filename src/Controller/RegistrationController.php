@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Notification\Sender;
 use App\Security\AppAuthentitAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,7 +20,13 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/register", name="app_register")
      */
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, AppAuthentitAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
+    public function register(
+        Request $request,
+        UserPasswordHasherInterface $userPasswordHasher,
+        UserAuthenticatorInterface $userAuthenticator, AppAuthentitAuthenticator $authenticator,
+        EntityManagerInterface $entityManager,
+        Sender $sender
+    ): Response
     {
         $user = new User();
         $user->setRoles(["ROLE_USER"]);
@@ -37,7 +44,10 @@ class RegistrationController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
+
             // do anything else you need here, like send an email
+            $sender->SendNewUserNotificationToAdmin($user);
+            //dump($sender);
 
             return $userAuthenticator->authenticateUser(
                 $user,

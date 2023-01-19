@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class SeasonController extends AbstractController
 {
@@ -18,6 +19,7 @@ class SeasonController extends AbstractController
     public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
         $season = new Season();
+        $season->setDateCreated(new \DateTime);
         $seasonForm = $this->createForm(SeasonType::class,$season);
         $seasonForm->handleRequest($request);
 

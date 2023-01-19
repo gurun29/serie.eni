@@ -37,7 +37,10 @@ class SerieType extends AbstractType
                 'html5'=>true,
                 'widget' => 'single_text',
             ])
-            ->add('lastAirDate')
+            ->add('lastAirDate', DateType::class, [
+                'html5'=>true,
+                'widget' => 'single_text',
+            ])
             ->add('backdrop')
             //->add('poster')
             ->add('poster', FileType::class,[
